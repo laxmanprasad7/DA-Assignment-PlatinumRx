@@ -1,1 +1,27 @@
+1. Populate ticket_created_at
 
+Used VLOOKUP:
+
+=VLOOKUP(A2, ticket!E:B, 4, FALSE)
+
+(A2 = cms_id)
+
+---
+
+2. Count tickets (same day)
+
+Created helper column:
+
+=IF(INT(created_at)=INT(closed_at),1,0)
+
+Then used pivot:
+Rows → outlet_id
+Values → SUM(helper)
+
+---
+
+3. Same hour
+
+=IF(TEXT(created_at,"yyyy-mm-dd hh")=TEXT(closed_at,"yyyy-mm-dd hh"),1,0)
+
+Then pivot again
